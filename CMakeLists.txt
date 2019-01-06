@@ -18,7 +18,7 @@ AUX_SOURCE_DIRECTORY(src v_SRC)
 add_executable(demo ${v_SRC})
 
 
-INCLUDE_DIRECTORIES(include)
+INCLUDE_DIRECTORIES(. include)
 INCLUDE_DIRECTORIES("$ENV{XLibrary}/OpenGL/Libs/include")
 
 find_library(v_glfw3 glfw3 $ENV{XLibrary}/OpenGL/Libs/lib)
