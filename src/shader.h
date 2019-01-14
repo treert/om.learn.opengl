@@ -8,47 +8,24 @@
 #include <sstream>
 #include <iostream>
 
+#include "XUtils.h"
+
 class Shader
 {
-public:
-	static std::string GetRealPath(const char* path) {
-		auto *p = strchr(path, '/');
-		if (!p) {
-			p = strchr(path, '\\');
-		}
-		if (p) {
-			return path;
-		}
-
-		std::ifstream f(path);
-		if (f.good()) {
-			return path;
-		}
-
-		std::string np = std::string("shaders/") + path;
-
-		int num = 5;
-		while (num-- > 0)
-		{
-			f.open(np);
-			if (f.good()) {
-				return np;
-			}
-			np = std::string("../") + np;
-		}
-		return path;// error not found
-	}
 public:
     unsigned int ID;
 	std::string m_vs_str;
 	std::string m_fs_str;
-	Shader(std::string v_path, std::string f_path) {
-		new(this) Shader(v_path.c_str(), f_path.c_str());
-	}
+	//Shader(std::string v_path, std::string f_path) {
+	//	new(this) Shader(v_path.c_str(), f_path.c_str());
+	//}
     // constructor generates the shader on the fly
     // ------------------------------------------------------------------------
     Shader(const char* vertexPath, const char* fragmentPath)
     {
+		auto vertexPath_ = XUtils::GetRealPath(vertexPath,"shaders/");
+		auto fragmentPath_ = XUtils::GetRealPath(fragmentPath,"shaders/");
+
 		ID = 0;
         // 1. retrieve the vertex/fragment source code from filePath
         std::string vertexCode;
@@ -61,8 +38,8 @@ public:
         try 
         {
             // open files
-            vShaderFile.open(vertexPath);
-            fShaderFile.open(fragmentPath);
+            vShaderFile.open(vertexPath_);
+            fShaderFile.open(fragmentPath_);
             std::stringstream vShaderStream, fShaderStream;
             // read file's buffer contents into streams
             vShaderStream << vShaderFile.rdbuf();
