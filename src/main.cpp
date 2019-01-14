@@ -15,6 +15,8 @@ const unsigned int SCR_HEIGHT = 600;
 
 int main()
 {
+
+	stbi_set_flip_vertically_on_load(true);
 	// glfw: initialize and configure
 	// ------------------------------
 	glfwInit();
