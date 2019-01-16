@@ -29,5 +29,5 @@ std::string XUtils::GetRealPath(const char* path, const char* dir /* = nullptr *
 		}
 		np = std::string("../") + np;
 	}
-	return path;// error not found
+	return "";// error not found
 }
