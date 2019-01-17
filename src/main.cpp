@@ -2,6 +2,10 @@
 #include <GLFW/glfw3.h>
 #include <stb_image.h>
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 #include "shader.h"
 #include "Texture.h"
 
@@ -93,6 +97,8 @@ int main()
 	// load and create a texture 
 	// -------------------------
 	Texture tex("sit.jpg");
+	glm::mat4 trans = glm::mat4(1);
+	trans = glm::scale(trans, glm::vec3(1.0 * tex.m_width / tex.m_height, 1.0, 1.0));
 
 	// render loop
 	// -----------
@@ -112,6 +118,8 @@ int main()
 
 		tex.use();
 		ourShader.setInt("ourTexture", 0);
+		ourShader.setMat4("X_MVP", trans);
+
 
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);

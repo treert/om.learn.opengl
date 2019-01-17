@@ -7,6 +7,8 @@
 class Texture{
 public:
 	unsigned int ID;
+	int m_width;
+	int m_height;
 
 	Texture(const char*path) {
 		auto path_ = XUtils::GetRealPath(path, "image/");
@@ -40,6 +42,8 @@ public:
 		stbi_image_free(data);
 
 		ID = texture;
+		m_width = width;
+		m_height = height;
 	}
 
 	void use(int idx = 0) {
