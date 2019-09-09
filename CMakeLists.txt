@@ -49,9 +49,9 @@ my_add_executable(demo ${v_source})
 
 
 INCLUDE_DIRECTORIES(include)
-INCLUDE_DIRECTORIES("$ENV{XLibrary}/OpenGL/Libs/include")
+INCLUDE_DIRECTORIES("${CMAKE_CURRENT_SOURCE_DIR}/depends/glfw/include")
 
-find_library(v_glfw3 glfw3 $ENV{XLibrary}/OpenGL/Libs/lib)
+find_library(v_glfw3 glfw3 ${CMAKE_CURRENT_SOURCE_DIR}/depends/glfw/lib-vc2017)
 if(NOT v_glfw3)
     message(FATAL_ERROR "glfw3 not found")
 endif()
